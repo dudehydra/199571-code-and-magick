@@ -11,15 +11,16 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', 130, 30);
   ctx.fillText('Список результатов:', 130, 50);
-  var startPosition = 130;
-  var maxTimes = times[0];
+  var startPosition = 100 + ((420 - (90 * names.length - 50)) / 2);
+  var maxTime = times[0];
   for (var j = 0; j < times.length; j++) {
-    if (maxTimes < times[j]) {
-      maxTimes = times[j];
+    if (maxTime < times[j]) {
+      maxTime = times[j];
     }
   }
   for (var i = names.length - 1; i >= 0; i--) {
-    var columnHeight = 150 * (times[i] / maxTimes);
+    times[i] = Math.floor(times[i]);
+    var columnHeight = 150 * (times[i] / maxTime);
     var columnTopPosition = 100 + (150 - columnHeight);
     var textTopPosition = columnTopPosition - 20;
     if (names[i] === 'Вы') {
@@ -29,7 +30,6 @@ window.renderStatistics = function (ctx, names, times) {
     }
     ctx.fillRect(startPosition, columnTopPosition, 40, columnHeight);
     ctx.fillStyle = '#000000';
-    times[i] = Math.floor(times[i]);
     ctx.fillText(times[i], startPosition, textTopPosition);
     ctx.fillText(names[i], startPosition, 255);
     startPosition += 90;
