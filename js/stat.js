@@ -46,7 +46,7 @@ window.renderStatistics = function (ctx, names, times) {
   };
   var getRandomColor = function () {
     return 'rgb(0,0,' + Math.round(Math.random() * 255) + ')';
-  }
+  };
   var drawColumnText = function (factor, topPosition) {
     ctx.fillStyle = TEXT_DATA.color;
     ctx.fillText(times[factor], startPosition + (START_POSITION.columnWidth * factor), topPosition);
