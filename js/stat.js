@@ -16,7 +16,8 @@ window.renderStatistics = function (ctx, names, times) {
     top: 30,
     left: 130,
     style: '16px Tahoma',
-    color: '#000000'
+    color: '#000000',
+    textBottomPosition: 255
   };
   var START_POSITION = {
     startingPoint: CANVAS_DATA.left,
@@ -26,9 +27,45 @@ window.renderStatistics = function (ctx, names, times) {
   };
   var PLAYER_DATA = {
     name: 'Вы',
-    color: 'rgba(255, 0, 0, 1)',
-    columnHeight: 150
+    columnColor: 'rgba(255, 0, 0, 1)',
+    columnWidth: 40,
+    columnHeight: 150,
+    textTopDeviation: 20
   };
+  var searchMaxNumber = function () {
+    var max = times[0];
+    for (var j = 0; j < times.length; j++) {
+      if (max < times[j]) {
+        max = times[j];
+      }
+    }
+    return max;
+  };
+  var calcStartPosition = function () {
+    return START_POSITION.startingPoint + ((START_POSITION.canvasWidth - (START_POSITION.columnWidth * names.length - START_POSITION.columnGutter)) / 2);
+  };
+  var drawColumnText = function (factor, topPosition) {
+    ctx.fillStyle = TEXT_DATA.color;
+    ctx.fillText(times[factor], startPosition + (START_POSITION.columnWidth * factor), topPosition);
+    ctx.fillText(names[factor], startPosition + (START_POSITION.columnWidth * factor), TEXT_DATA.textBottomPosition);
+  };
+  var drawColumn = function (inputDataNames, inputDataTimes) {
+    for (var i = 0; i < inputDataNames.length; i++) {
+      inputDataTimes[i] = Math.round(inputDataTimes[i]);
+      var columnHeight = PLAYER_DATA.columnHeight * (inputDataTimes[i] / maxTime);
+      var columnTopPosition = CANVAS_DATA.left + (PLAYER_DATA.columnHeight - columnHeight);
+      var textTopPosition = columnTopPosition - PLAYER_DATA.textTopDeviation;
+      if (inputDataNames[i] === PLAYER_DATA.name) {
+        ctx.fillStyle = PLAYER_DATA.columnColor;
+      } else {
+        ctx.fillStyle = 'rgb(0,0,' + Math.round(Math.random() * 255) + ')';
+      }
+      ctx.fillRect(startPosition + (START_POSITION.columnWidth * i), columnTopPosition, PLAYER_DATA.columnWidth, columnHeight);
+      drawColumnText(i, textTopPosition);
+    }
+  };
+  var maxTime = searchMaxNumber();
+  var startPosition = calcStartPosition();
   ctx.fillStyle = SHADOW_DATA.fill;
   ctx.fillRect(SHADOW_DATA.left, SHADOW_DATA.top, CANVAS_DATA.width, CANVAS_DATA.height);
   ctx.fillStyle = CANVAS_DATA.fill;
@@ -37,28 +74,6 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.font = TEXT_DATA.style;
   ctx.textBaseline = 'hanging';
   ctx.fillText('Ура вы победили!', TEXT_DATA.left, TEXT_DATA.top);
-  ctx.fillText('Список результатов:', TEXT_DATA.left, TEXT_DATA.top + 20);
-  var startPosition = START_POSITION.startingPoint + ((START_POSITION.canvasWidth - (START_POSITION.columnWidth * names.length - START_POSITION.columnGutter)) / 2);
-  var maxTime = times[0];
-  for (var j = 0; j < times.length; j++) {
-    if (maxTime < times[j]) {
-      maxTime = times[j];
-    }
-  }
-  for (var i = 0; i < names.length; i++) {
-    times[i] = Math.round(times[i]);
-    var columnHeight = PLAYER_DATA.columnHeight * (times[i] / maxTime);
-    var columnTopPosition = CANVAS_DATA.left + (PLAYER_DATA.columnHeight - columnHeight);
-    var textTopPosition = columnTopPosition - 20;
-    if (names[i] === PLAYER_DATA.name) {
-      ctx.fillStyle = PLAYER_DATA.color;
-    } else {
-      ctx.fillStyle = 'rgb(0,0,' + Math.round(Math.random() * 255) + ')';
-    }
-    ctx.fillRect(startPosition, columnTopPosition, 40, columnHeight);
-    ctx.fillStyle = TEXT_DATA.color;
-    ctx.fillText(times[i], startPosition, textTopPosition);
-    ctx.fillText(names[i], startPosition, 255);
-    startPosition += 90;
-  }
+  ctx.fillText('Список результатов:', TEXT_DATA.left, TEXT_DATA.top + PLAYER_DATA.textTopDeviation);
+  drawColumn(names, times);
 };
