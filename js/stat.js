@@ -44,6 +44,9 @@ window.renderStatistics = function (ctx, names, times) {
   var calcStartPosition = function () {
     return START_POSITION.startingPoint + ((START_POSITION.canvasWidth - (START_POSITION.columnWidth * names.length - START_POSITION.columnGutter)) / 2);
   };
+  var getRandomColor = function () {
+    return 'rgb(0,0,' + Math.round(Math.random() * 255) + ')';
+  }
   var drawColumnText = function (factor, topPosition) {
     ctx.fillStyle = TEXT_DATA.color;
     ctx.fillText(times[factor], startPosition + (START_POSITION.columnWidth * factor), topPosition);
@@ -58,7 +61,7 @@ window.renderStatistics = function (ctx, names, times) {
       if (inputDataNames[i] === PLAYER_DATA.name) {
         ctx.fillStyle = PLAYER_DATA.columnColor;
       } else {
-        ctx.fillStyle = 'rgb(0,0,' + Math.round(Math.random() * 255) + ')';
+        ctx.fillStyle = getRandomColor();
       }
       ctx.fillRect(startPosition + (START_POSITION.columnWidth * i), columnTopPosition, PLAYER_DATA.columnWidth, columnHeight);
       drawColumnText(i, textTopPosition);
