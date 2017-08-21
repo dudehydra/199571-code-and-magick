@@ -7,8 +7,8 @@ var WIZARDS_INIT = {
   getRandomWizards: function (names, lastNames, coatColors, eyesColors) {
     var wizardCount = 4;
     var wizardsList = [];
-    var namesSortList = getRandomArr(names);
-    var lastNamesSortList = getRandomArr(lastNames);
+    var namesSortList = randomizeOrder(names);
+    var lastNamesSortList = randomizeOrder(lastNames);
     for (var i = 0; i < wizardCount; i++) {
       wizardsList[i] = {
         name: namesSortList[i] + ' ' + lastNamesSortList[i],
@@ -31,13 +31,13 @@ var WIZARDS_INIT = {
     }
     elem.appendChild(fragment);
   },
-  removeClassHidden: function (elem) {
+  showNode: function (elem) {
     elem.classList.remove('hidden');
   },
   init: function (wizard, fragment, elem, dialogElem, setupElem) {
-    this.removeClassHidden(dialogElem);
+    this.showNode(dialogElem);
     this.insertWizardFragments(wizard, fragment, elem);
-    this.removeClassHidden(setupElem);
+    this.showNode(setupElem);
   }
 };
 var userDialog = document.querySelector('.setup');
@@ -52,8 +52,9 @@ var getRandomElement = function (arr) {
 var compareRandom = function () {
   return Math.random() - 0.5;
 };
-var getRandomArr = function (array) {
-  return array.sort(compareRandom);
+var randomizeOrder = function (array) {
+  var arrayClone = array.slice(0, array.length);
+  return arrayClone.sort(compareRandom);
 };
 wizards = WIZARDS_INIT.getRandomWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
 WIZARDS_INIT.init(wizards, setupListFragment, listElement, userDialog, setupSimilar);
