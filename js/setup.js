@@ -5,18 +5,18 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_INIT = {
   getRandomWizards: function (names, lastNames, coatColors, eyesColors) {
-    var maxWizards = 4;
-    var wizardsArr = [];
-    var namesNumberArr = getRandomArr(names.length);
-    var lastNamesNumberArr = getRandomArr(lastNames.length);
-    for (var i = 0; i < maxWizards; i++) {
-      wizardsArr[i] = {
-        name: names[namesNumberArr[i]] + ' ' + lastNames[lastNamesNumberArr[i]],
+    var wizardCount = 4;
+    var wizardsList = [];
+    var namesSortList = getRandomArr(names);
+    var lastNamesSortList = getRandomArr(lastNames);
+    for (var i = 0; i < wizardCount; i++) {
+      wizardsList[i] = {
+        name: namesSortList[i] + ' ' + lastNamesSortList[i],
         eyesColor: getRandomElement(eyesColors),
         coatColor: getRandomElement(coatColors)
       };
     }
-    return wizardsArr;
+    return wizardsList;
   },
   drawWizard: function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -52,12 +52,8 @@ var getRandomElement = function (arr) {
 var compareRandom = function () {
   return Math.random() - 0.5;
 };
-var getRandomArr = function (arrayLength) {
-  var numbersArray = [];
-  for (var j = 0; j < arrayLength; j++) {
-    numbersArray[j] = j;
-  }
-  return numbersArray.sort(compareRandom);
+var getRandomArr = function (array) {
+  return array.sort(compareRandom);
 };
 wizards = WIZARDS_INIT.getRandomWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
 WIZARDS_INIT.init(wizards, setupListFragment, listElement, userDialog, setupSimilar);
