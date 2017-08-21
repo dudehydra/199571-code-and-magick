@@ -53,7 +53,7 @@ var compareRandom = function () {
   return Math.random() - 0.5;
 };
 var randomizeOrder = function (array) {
-  var arrayClone = array.slice(0, array.length - 1);
+  var arrayClone = array.slice(0, array.length);
   return arrayClone.sort(compareRandom);
 };
 wizards = WIZARDS_INIT.getRandomWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
