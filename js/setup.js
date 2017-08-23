@@ -4,14 +4,14 @@ var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вал
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARDS_INIT = {
-  getRandomWizards: function (names, lastNames, coatColors, eyesColors) {
-    var wizardCount = 4;
+  generateSimilarWizards: function (names, lastNames, coatColors, eyesColors) {
+    var wizardsCount = 4;
     var wizardsList = [];
-    var namesSortList = randomizeOrder(names);
-    var lastNamesSortList = randomizeOrder(lastNames);
-    for (var i = 0; i < wizardCount; i++) {
+    var namesShuffled = randomizeOrder(names);
+    var lastNamesShuffled = randomizeOrder(lastNames);
+    for (var i = 0; i < wizardsCount; i++) {
       wizardsList[i] = {
-        name: namesSortList[i] + ' ' + lastNamesSortList[i],
+        name: namesShuffled[i] + ' ' + lastNamesShuffled[i],
         eyesColor: getRandomElement(eyesColors),
         coatColor: getRandomElement(coatColors)
       };
