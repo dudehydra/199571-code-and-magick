@@ -56,5 +56,5 @@ var randomizeOrder = function (array) {
   var arrayClone = array.slice(0, array.length);
   return arrayClone.sort(compareRandom);
 };
-wizards = WIZARDS_INIT.getRandomWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
+wizards = WIZARDS_INIT.generateSimilarWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
 WIZARDS_INIT.init(wizards, setupListFragment, listElement, userDialog, setupSimilar);
