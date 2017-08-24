@@ -112,6 +112,7 @@ setupWizard.addEventListener('click', function (evt) {
       setupHandlers.wizardElemFill(setupWizardEyes, EYES_COLORS);
       break;
   }
+  return false;
 });
 setupFireball.addEventListener('click', function () {
   setupHandlers.wizardFireballFill(this, FIREBALL_COLORS);
