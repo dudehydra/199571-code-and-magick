@@ -48,11 +48,11 @@ var KEY_CODE = {
 var setupHandlers = {
   openPopup: function () {
     userDialog.classList.remove('hidden');
-    document.addEventListener('keydown', this.popupEscPressHandler);
+    document.addEventListener('keydown', setupHandlers.popupEscPressHandler);
   },
   closePopup: function () {
     userDialog.classList.add('hidden');
-    document.removeEventListener('keydown', this.popupEscPressHandler);
+    document.removeEventListener('keydown', setupHandlers.popupEscPressHandler);
   },
   popupEscPressHandler: function (evt) {
     if (evt.keyCode === KEY_CODE.esc && document.activeElement !== setupUserName) {
@@ -66,11 +66,11 @@ var setupHandlers = {
       setupHandlers.closePopup();
     }
   },
-  wizardElemFill: function (elem, array) {
-    elem.style.fill = getRandomElement(array);
+  wizardElemFill: function (elem, array, index) {
+    elem.style.fill = array[index];
   },
-  wizardFireballFill: function (elem, array) {
-    elem.style.backgroundColor = getRandomElement(array);
+  wizardFireballFill: function (elem, array, index) {
+    elem.style.backgroundColor = array[index];
   }
 };
 var userDialog = document.querySelector('.setup');
@@ -86,6 +86,11 @@ var setupWizard = document.querySelector('.wizard');
 var setupWizardCoat = document.querySelector('.wizard-coat');
 var setupWizardEyes = document.querySelector('.wizard-eyes');
 var setupFireball = document.querySelector('.setup-fireball-wrap');
+var colorsIndex = {
+  coat: 0,
+  eyes: 0,
+  fireball: 0
+};
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
@@ -95,6 +100,11 @@ var compareRandom = function () {
 var randomizeOrder = function (array) {
   var arrayClone = array.slice(0, array.length);
   return arrayClone.sort(compareRandom);
+};
+var incrementColorIndex = function (index, array) {
+  var indexNumber = index;
+  indexNumber = (indexNumber + 1) % array.length;
+  return indexNumber;
 };
 wizards = WIZARDS_INIT.generateSimilarWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
 WIZARDS_INIT.init(wizards, setupListFragment, listElement, setupSimilar);
@@ -106,15 +116,18 @@ setupWizard.addEventListener('click', function (evt) {
   var evtTarget = evt.target;
   switch (evtTarget) {
     case setupWizardCoat:
-      setupHandlers.wizardElemFill(setupWizardCoat, COAT_COLORS);
+      setupHandlers.wizardElemFill(setupWizardCoat, COAT_COLORS, colorsIndex.coat);
+      colorsIndex.coat = incrementColorIndex(colorsIndex.coat, COAT_COLORS);
       break;
     case setupWizardEyes:
-      setupHandlers.wizardElemFill(setupWizardEyes, EYES_COLORS);
+      setupHandlers.wizardElemFill(setupWizardEyes, EYES_COLORS, colorsIndex.eyes);
+      colorsIndex.eyes = incrementColorIndex(colorsIndex.eyes, EYES_COLORS);
       break;
   }
   return false;
 });
 setupFireball.addEventListener('click', function () {
-  setupHandlers.wizardFireballFill(this, FIREBALL_COLORS);
+  setupHandlers.wizardFireballFill(this, FIREBALL_COLORS, colorsIndex.fireball);
+  colorsIndex.fireball = incrementColorIndex(colorsIndex.fireball, FIREBALL_COLORS);
 });
 
