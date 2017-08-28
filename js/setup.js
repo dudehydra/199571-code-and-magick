@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 'use strict';
-(function () {
+window.setup = (function () {
   var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
   var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -49,7 +49,7 @@
   var wizards = null;
   wizards = WIZARDS_INIT.generateSimilarWizards(NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS);
   WIZARDS_INIT.init(wizards, setupListFragment, listElement, setupSimilar);
-  window.wizardsSettings = {
+  return {
     coatColors: COAT_COLORS,
     eyesColors: EYES_COLORS,
     userDialog: userDialog

@@ -6,11 +6,11 @@
   };
   var setupHandlers = {
     openPopup: function () {
-      window.wizardsSettings.userDialog.classList.remove('hidden');
+      window.setup.userDialog.classList.remove('hidden');
       document.addEventListener('keydown', setupHandlers.popupEscPressHandler);
     },
     closePopup: function () {
-      window.wizardsSettings.userDialog.classList.add('hidden');
+      window.setup.userDialog.classList.add('hidden');
       document.removeEventListener('keydown', setupHandlers.popupEscPressHandler);
     },
     popupEscPressHandler: function (evt) {

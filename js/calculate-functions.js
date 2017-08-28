@@ -1,6 +1,6 @@
 'use strict';
-(function () {
-  window.calculateFunctions = {
+window.calculateFunctions = (function () {
+  var calculateFunctions = {
     getRandomElement: function (arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     },
@@ -17,4 +17,5 @@
       return indexNumber;
     }
   };
+  return calculateFunctions;
 })();

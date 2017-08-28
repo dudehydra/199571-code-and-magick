@@ -22,12 +22,12 @@
     var evtTarget = evt.target;
     switch (evtTarget) {
       case setupWizardCoat:
-        colorize.wizardElemFill(setupWizardCoat, window.wizardsSettings.coatColors, colorsIndex.coat);
-        colorsIndex.coat = window.calculateFunctions.incrementColorIndex(colorsIndex.coat, window.wizardsSettings.coatColors);
+        colorize.wizardElemFill(setupWizardCoat, window.setup.coatColors, colorsIndex.coat);
+        colorsIndex.coat = window.calculateFunctions.incrementColorIndex(colorsIndex.coat, window.setup.coatColors);
         break;
       case setupWizardEyes:
-        colorize.wizardElemFill(setupWizardEyes, window.wizardsSettings.eyesColors, colorsIndex.eyes);
-        colorsIndex.eyes = window.calculateFunctions.incrementColorIndex(colorsIndex.eyes, window.wizardsSettings.eyesColors);
+        colorize.wizardElemFill(setupWizardEyes, window.setup.eyesColors, colorsIndex.eyes);
+        colorsIndex.eyes = window.calculateFunctions.incrementColorIndex(colorsIndex.eyes, window.setup.eyesColors);
         break;
     }
     return false;
